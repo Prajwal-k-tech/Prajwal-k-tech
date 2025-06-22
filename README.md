@@ -1,11 +1,11 @@
 <h1 align="center">Hey I'm, Prajwal K</h1>
-<h3 align="center">I'm a Student at IIIT Kottayam, constantly trying to level up my tech skills. Currently I take an interesting in web3 and competitive programming</h3>
+<h3 align="center">I'm a Student at IIIT Kottayam, constantly trying to level up my tech skills. Currently I take an interest in web3 and competitive programming</h3>
 
 <p align="left"> <img src="https://komarev.com/ghpvc/?username=prajwal-k-tech&label=Profile%20views&color=0e75b6&style=flat" alt="prajwal-k-tech" /> </p>
 
 <p align="left"> <a href="https://github.com/ryo-ma/github-profile-trophy"><img src="https://github-profile-trophy.vercel.app/?username=prajwal-k-tech" alt="prajwal-k-tech" /></a> </p>
 
-- 🌱 I’m currently learning **Solidity, Rust, and Next.js**
+- I’m currently learning **Solidity, Rust, and Next.js**
 
 <h3 align="left">Connect with me:</h3>
 <p align="left">
