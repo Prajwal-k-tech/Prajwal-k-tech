@@ -1,0 +1,1914 @@
+```
+#include using namespace std;
+
+int main(){
+map> adj = {
+{'A', {'B', 'C'}},
+{'B', {'A', 'D', 'E'}},
+{'C', {'A', 'F'}},
+{'D', {'B'}},
+{'E', {'B', 'F'}},
+{'F', {'C', 'E'}}
+}; //the map
+queue q;
+map used;
+q.push('A');
+used['A'] = true;
+cout << "BFS Traversal:\n";
+while (!q.empty()) {
+char v = q.front();
+q.pop();
+cout << v << " ";
+for (char u : adj[v]) {
+if (!used[u]) {
+used[u] = true;
+q.push(u);
+}
+}
+}
+}
+```
+13:13
+
+vector> adj; // adjacency list representation
+int n; // number of nodes
+int s = 0; // source vertex
+queue q;
+vector usedNo;
+vector dNo, pNo;
+q.push(s);
+used[s] = true;
+p[s] = -1;
+while (!q.empty()) {
+int v = q.front();
+q.pop();
+for (int u : adj[v]) {
+if (!used[u]) {
+used[u] = true;
+q.push(u);
+d[u] = d[v] + 1;
+p[u] = v;
+}
+}
+}
+13:37
+
+void dfs(int v) {
+visited[v] = true;
+// Process vertex v
+for (int u : adj[v]) {
+if (!visited[u])
+dfs(u);
+}
+}
+13:38
+
+void dfs(int start) {
+stack st;
+st.push(start);
+
+while (!st.empty()) {
+int v = st.top();
+st.pop();
+
+if (visited[v]) continue;
+visited[v] = true;
+// Process vertex v
+
+for (int u : adj[v]) {
+if (!visited[u])
+st.push(u);
+}
+}
+}
+15:43
+
+#include using namespace std;
+
+// ========== 1. DETECT CYCLE IN UNDIRECTED GRAPH ==========
+vector> adj;
+vector vis;
+
+bool dfs_undirected(int u, int p) {
+vis[u] = 1;
+for (int v : adj[u]) {
+if (!vis[v]) {
+if (dfs_undirected(v, u)) return 1;
+} else if (v != p) return 1;
+}
+return 0;
+}
+
+bool hasCycleUndirected(int n) {
+vis.assign(n, 0);
+for (int i = 0; i < n; i++)
+if (!vis[i] && dfs_undirected(i, -1)) return 1;
+return 0;
+}
+
+// ========== 2. DETECT CYCLE IN DIRECTED GRAPH ==========
+vector col;
+
+bool dfs_directed(int u) {
+col[u] = 1;
+for (int v : adj[u]) {
+if (col[v] == 1) return 1;
+if (col[v] == 0 && dfs_directed(v)) return 1;
+}
+col[u] = 2;
+return 0;
+}
+
+bool hasCycleDirected(int n) {
+col.assign(n, 0);
+for (int i = 0; i < n; i++)
+if (col[i] == 0 && dfs_directed(i)) return 1;
+return 0;
+}
+15:46
+
+#include using namespace std;
+
+vector adj[100005], res;
+int vis[100005]; // 0: unvisited, 1: visiting, 2: visited
+
+void dfs(int u) {
+vis[u] = 1;
+for (int v : adj[u]) {
+if (!vis[v]) dfs(v);
+}
+res.push_back(u); // Add to result after visiting all neighbors
+}
+
+// In main:
+// for (int i = 1; i <= n; i++) if (!vis[i]) dfs(i);
+// reverse(res.begin(), res.end());
+16:01
+
+#include using namespace std;
+
+const int MAXN = 1e5 + 5;
+vector adj[MAXN], topo;
+int in_degree[MAXN];
+
+bool kahns(int n) {
+queue q;
+for (int i = 1; i <= n; i++)
+if (in_degree[i] == 0) q.push(i);
+
+while (!q.empty()) {
+int u = q.front(); q.pop();
+topo.push_back(u);
+
+for (int v : adj[u]) {
+if (--in_degree[v] == 0) q.push(v);
+}
+}
+// Returns true if Topo Sort is successful (No cycle)
+return topo.size() == n;
+}
+16:40
+
+#include using namespace std;
+
+const int N = 1e5 + 5;
+vector adj[N], rev[N], order, scc;
+bool vis[N];
+
+// First pass: Find finish times
+void dfs1(int u) {
+vis[u] = 1;
+for (int v : adj[u]) if (!vis[v]) dfs1(v);
+order.push_back(u);
+}
+
+// Second pass: Traverse reversed graph to get SCC nodes
+void dfs2(int u) {
+vis[u] = 1;
+scc.push_back(u);
+for (int v : rev[u]) if (!vis[v]) dfs2(v);
+}
+
+int main() {
+int n, m; cin >> n >> m;
+for (int i = 0; i < m; i++) {
+int u, v; cin >> u >> v;
+adj[u].push_back(v);
+rev[v].push_back(u);
+}
+
+// 1. Fill the 'order' vector based on finish times
+for (int i = 1; i <= n; i++) if (!vis[i]) dfs1(i);
+
+// 2. Reset visited manually (simple loop is fine)
+for (int i = 1; i <= n; i++) vis[i] = 0;
+
+// 3. Process in reverse finish time order
+for (int i = n - 1; i >= 0; i--) {
+int u = order[i];
+if (!vis[u]) {
+scc.clear();
+dfs2(u);
+
+// 'scc' now contains all nodes of one component
+cout << "Found SCC: ";
+for (int x : scc) cout << x << " ";
+cout << endl;
+}
+}
+return 0;
+}
+17:18
+
+#include using namespace std;
+
+const int N = 1e5 + 5;
+vector adj[N];
+int tin[N], low[N], timer;
+bool onStack[N];
+stack st;
+
+void dfs(int u) {
+tin[u] = low[u] = ++timer;
+st.push(u);
+onStack[u] = true;
+
+for (int v : adj[u]) {
+if (!tin[v]) {
+// Case 1: v is not visited, it's a tree-edge
+dfs(v);
+low[u] = min(low[u], low[v]);
+} else if (onStack[v]) {
+// Case 2: v is in current stack, it's a back-edge
+low[u] = min(low[u], tin[v]);
+}
+}
+
+// If u is the root of an SCC
+if (low[u] == tin[u]) {
+cout << "SCC: ";
+while (true) {
+int node = st.top();
+st.pop();
+onStack[node] = false;
+cout << node << " ";
+if (u == node) break;
+}
+cout << endl;
+}
+}
+
+int main() {
+int n, m; cin >> n >> m;
+while (m--) {
+int u, v; cin >> u >> v;
+adj[u].push_back(v);
+}
+
+for (int i = 1; i <= n; i++) {
+if (!tin[i]) dfs(i);
+}
+return 0;
+}
+18:43
+
+struct Node {
+int data;
+Node *left, *right;
+bool lThread = true, rThread = true;
+Node(int val) : data(val), left(NULL), right(NULL) {}
+};
+
+Node* insert(Node* root, int key) {
+if (!root) return new Node(key);
+Node *curr = root, *parent = NULL;
+while (curr) {
+parent = curr;
+if (key < curr->data) {
+if (!curr->lThread) curr = curr->left; else break;
+} else {
+if (!curr->rThread) curr = curr->right; else break;
+}
+}
+Node* newNode = new Node(key);
+if (key < parent->data) {
+newNode->left = parent->left;
+newNode->right = parent;
+parent->lThread = false;
+parent->left = newNode;
+} else {
+newNode->left = parent;
+newNode->right = parent->right;
+parent->rThread = false;
+parent->right = newNode;
+}
+return root;
+}
+19:53
+
+struct Node {
+int key;
+Node *left = NULL, *right = NULL;
+Node(int k) : key(k) {}
+};
+
+Node* rightRotate(Node* x) {
+Node* y = x->left;
+x->left = y->right;
+y->right = x;
+return y;
+}
+
+Node* leftRotate(Node* x) {
+Node* y = x->right;
+x->right = y->left;
+y->left = x;
+return y;
+}
+
+Node* splay(Node* root, int key) {
+if (!root || root->key == key) return root;
+if (key < root->key) {
+if (!root->left) return root;
+if (key < root->left->key) { // Zig-Zig
+root->left->left = splay(root->left->left, key);
+root = rightRotate(root);
+} else if (key > root->left->key) { // Zig-Zag
+root->left->right = splay(root->left->right, key);
+if (root->left->right) root->left = leftRotate(root->left);
+}
+return (root->left == NULL) ? root : rightRotate(root);
+} else {
+if (!root->right) return root;
+if (key < root->right->key) { // Zag-Zig
+root->right->left = splay(root->right->left, key);
+if (root->right->left) root->right = rightRotate(root->right);
+} else if (key > root->right->key) { // Zag-Zag
+root->right->right = splay(root->right->right, key);
+root = leftRotate(root);
+}
+return (root->right == NULL) ? root : leftRotate(root);
+}
+}
+19:58
+
+struct Node {
+int key;
+Node *left = NULL, *right = NULL;
+Node(int k) : key(k) {}
+};
+
+Node* rightRotate(Node* x) {
+Node* y = x->left;
+x->left = y->right;
+y->right = x;
+return y;
+}
+
+Node* leftRotate(Node* x) {
+Node* y = x->right;
+x->right = y->left;
+y->left = x;
+return y;
+}
+
+Node* splay(Node* root, int key) {
+if (!root || root->key == key) return root;
+if (key < root->key) {
+if (!root->left) return root;
+if (key < root->left->key) { // Zig-Zig
+root->left->left = splay(root->left->left, key);
+root = rightRotate(root);
+} else if (key > root->left->key) { // Zig-Zag
+root->left->right = splay(root->left->right, key);
+if (root->left->right) root->left = leftRotate(root->left);
+}
+return (root->left == NULL) ? root : rightRotate(root);
+} else {
+if (!root->right) return root;
+if (key < root->right->key) { // Zag-Zig
+root->right->left = splay(root->right->left, key);
+if (root->right->left) root->right = rightRotate(root->right);
+} else if (key > root->right->key) { // Zag-Zag
+root->right->right = splay(root->right->right, key);
+root = leftRotate(root);
+}
+return (root->right == NULL) ? root : leftRotate(root);
+}
+}
+19:58
+
+struct Node {
+int data;
+Node *left = NULL, *right = NULL;
+};
+
+bool isMirror(Node* n1, Node* n2) {
+if (!n1 && !n2) return true;
+if (!n1 || !n2) return false;
+// Note: In foldable trees, we only care about structure, not values.
+return isMirror(n1->left, n2->right) && isMirror(n1->right, n2->left);
+}
+
+bool isFoldable(Node* root) {
+if (!root) return true;
+return isMirror(root->left, root->right);
+}
+23:23
+
+#include using namespace std;
+using ll = long long;
+const ll INF = 1e15;
+
+struct Node {
+vector> mat;
+vector path;
+ll cost;
+int city, level;
+bool operator>(const Node& o) const {
+if(cost != o.cost) return cost > o.cost;
+return path > o.path;
+}
+};
+
+struct TSPSolver {
+int n;
+vector> dist;
+TSPSolver(int n, vector>& d) : nNo, dist(d) {}
+ll reduce(vector>& mat){
+ll cost = 0;
+for(int i = 0; i < n; i++){
+ll mn = INF;
+for(int j = 0; j < n; j++) mn = min(mn, mat[i][j]);
+if(mn == 0 || mn == INF) continue;
+cost += mn;
+for(int j = 0; j < n; j++) if(mat[i][j] != INF) mat[i][j] -= mn;
+}
+for(int j = 0; j < n; j++){
+ll mn = INF;
+for(int i = 0; i < n; i++) mn = min(mn, mat[i][j]);
+if(mn == 0 || mn == INF) continue;
+cost += mn;
+for(int i = 0; i < n; i++) if(mat[i][j] != INF) mat[i][j] -= mn;
+}
+return cost;
+}
+
+pair, ll> solve(){
+vector> mat = dist;
+ll initCost = reduce(mat);
+Node root;
+root.mat = mat;
+root.cost = initCost;
+root.city = 0;
+root.level = 0;
+root.path = {0};
+
+priority_queue, greater> pq;
+pq.push(root);
+ll best = INF;
+vector bestPath;
+while(!pq.empty()){
+Node cur = pq.top(); pq.pop();
+if(cur.cost > best) continue;
+
+if(cur.level == n - 1){
+if(cur.cost < best || (cur.cost == best && cur.path < bestPath)){
+best = cur.cost;
+bestPath = cur.path;
+bestPath.push_back(0);
+}
+continue;
+}
+
+for(int j = 0; j < n; j++){
+if(cur.mat[cur.city][j] == INF) continue;
+
+Node nxt;
+nxt.mat = cur.mat;
+nxt.level = cur.level + 1;
+nxt.city = j;
+nxt.path = cur.path;
+nxt.path.push_back(j);
+
+ll edgeCost = nxt.mat[cur.city][j];
+for(int k = 0; k < n; k++) nxt.mat[cur.city][k] = INF;
+for(int k = 0; k < n; k++) nxt.mat[k][j] = INF;
+if(nxt.level < n - 1) nxt.mat[j][0] = INF;
+
+nxt.cost = cur.cost + edgeCost + reduce(nxt.mat);
+if(nxt.cost <= best) pq.push(nxt);
+}
+}
+return make_pair(bestPath, best);
+}
+};
+
+int main(){
+int n; cin >> n;
+vector> dist(n, vectorNo);
+for(int i = 0; i < n; i++)
+for(int j = 0; j < n; j++){
+cin >> dist[i][j];
+if(i == j) dist[i][j] = INF;
+}
+
+TSPSolver solver(n, dist);
+pair, ll> res = solver.solve();
+vector path = res.first;
+ll cost = res.second;
+
+for(int i = 0; i < (int)path.size(); i++){
+if(i) cout << '-';
+cout << path[i] + 1;
+}
+cout << '\n' << cost << '\n';
+}
+23:55
+
+#include using namespace std;
+
+typedef long long ll;
+
+const int MAXN = 2e5 + 5;
+ll tree[4 * MAXN];
+ll lazy[4 * MAXN];
+int a[MAXN];
+
+// Push the lazy value from parent to children
+void push(int v, int tl, int tr) {
+if (lazy[v] != 0) {
+int tm = (tl + tr) / 2;
+// Apply pending update to children's sums
+tree[2 * v] += lazy[v] * (tm - tl + 1);
+tree[2 * v + 1] += lazy[v] * (tr - tm);
+// Pass the lazy tag to children
+lazy[2 * v] += lazy[v];
+lazy[2 * v + 1] += lazy[v];
+// Reset current lazy tag
+lazy[v] = 0;
+}
+}
+
+void build(int v, int tl, int tr) {
+if (tl == tr) {
+tree[v] = a[tl];
+} else {
+int tm = (tl + tr) / 2;
+build(2 * v, tl, tm);
+build(2 * v + 1, tm + 1, tr);
+tree[v] = tree[2 * v] + tree[2 * v + 1];
+}
+}
+
+void update(int v, int tl, int tr, int l, int r, int add) {
+if (l > r) return;
+if (l == tl && r == tr) {
+tree[v] += (ll)add * (tr - tl + 1);
+lazy[v] += add;
+} else {
+push(v, tl, tr);
+int tm = (tl + tr) / 2;
+update(2 * v, tl, tm, l, min(r, tm), add);
+update(2 * v + 1, tm + 1, tr, max(l, tm + 1), r, add);
+tree[v] = tree[2 * v] + tree[2 * v + 1];
+}
+}
+
+ll query(int v, int tl, int tr, int l, int r) {
+if (l > r) return 0;
+if (l == tl && r == tr) return tree[v];
+push(v, tl, tr);
+int tm = (tl + tr) / 2;
+return query(2 * v, tl, tm, l, min(r, tm)) +
+query(2 * v + 1, tm + 1, tr, max(l, tm + 1), r);
+}
+
+int main() {
+ios::sync_with_stdio(0); cin.tie(0);
+
+int n; cin >> n;
+for (int i = 1; i <= n; i++) cin >> a[i];
+
+build(1, 1, n);
+
+int q; cin >> q;
+while (q--) {
+int type; cin >> type;
+if (type == 1) { // Range Update: 1 l r val
+int l, r, val;
+cin >> l >> r >> val;
+update(1, 1, n, l, r, val);
+} else { // Range Query: 2 l r
+int l, r;
+cin >> l >> r;
+cout << query(1, 1, n, l, r) << "\n";
+}
+}
+
+return 0;
+}
+1 April
+00:45
+
+#include using namespace std;
+
+int arr[1000], n;
+
+void inorder(int i) {
+if (i >= n) return;
+inorder(2 * i + 1);
+cout << arr[i] << " ";
+inorder(2 * i + 2);
+}
+
+int main() {
+cin >> n;
+for (int i = 0; i < n; i++) cin >> arr[i];
+cout << "inorder traversal: ";
+inorder(0);
+return 0;
+}
+00:55
+
+#include using namespace std;
+
+int arr[1000], n;
+void heapify(int i) {
+int s = i, l = 2 * i + 1, r = 2 * i + 2;
+if (l < n && arr[l] < arr[s]) s = l;
+if (r < n && arr[r] < arr[s]) s = r;
+if (s != i) {
+swap(arr[i], arr[s]);
+heapify(s);
+}
+}
+
+void inorder(int i) {
+if (i >= n) return;
+inorder(2 * i + 1);
+cout << arr[i] << " ";
+inorder(2 * i + 2);
+}
+
+int main() {
+cin >> n;
+for (int i = 0; i < n; i++) cin >> arr[i];
+for (int i = n / 2 - 1; i >= 0; i--) heapify(i);
+cout << "inorder traversal: ";
+inorder(0);
+cout << '\n' ;
+}
+01:02
+
+struct Node {
+int val;
+Node *left, *right;
+Node(int v) : val(v), left(NULL), right(NULL) {}
+};
+
+Node* buildBST(vector& arr, int low, int high) {
+if (low > high) return NULL;
+
+int mid = low + (high - low) / 2;
+Node* root = new Node(arr[mid]);
+
+root->left = buildBST(arr, low, mid - 1);
+root->right = buildBST(arr, mid + 1, high);
+
+return root;
+}
+01:07
+
+int result = -1;
+
+void findKth(Node* root, int &k) {
+if (!root || k <= 0) return;
+
+// Visit Left
+findKth(root->left, k);
+
+// Visit Root
+k--;
+if (k == 0) {
+result = root->val;
+return;
+}
+
+// Visit Right
+findKth(root->right, k);
+}
+01:17
+
+int result = -1;
+
+bool findKth(Node* root, int &k) {
+if (!root) return false;
+
+// 1. Visit Left
+if (findKth(root->left, k)) return true;
+
+// 2. Visit Current Node ("The Countdown")
+k--;
+if (k == 0) {
+result = root->val;
+return true; // Found it! Stop recursing.
+}
+
+// 3. Visit Right
+return findKth(root->right, k);
+}
+01:24
+
+#include using namespace std;
+
+struct MinHeap {
+vector h;
+
+// Sift down an element to maintain heap property
+void shiftDown(int i) {
+int n = h.size();
+while (true) {
+int smallest = i;
+int l = 2 * i + 1, r = 2 * i + 2;
+
+if (l < n && h[l] < h[smallest]) smallest = l;
+if (r < n && h[r] < h[smallest]) smallest = r;
+
+if (smallest == i) break;
+swap(h[i], h[smallest]);
+i = smallest;
+}
+}
+
+// Sift up a new element to maintain heap property
+void shiftUp(int i) {
+while (i > 0 && h[i] < h[(i - 1) / 2]) {
+swap(h[i], h[(i - 1) / 2]);
+i = (i - 1) / 2;
+}
+}
+
+void push(int x) {
+h.push_back(x);
+shiftUp(h.size() - 1);
+}
+
+void pop() {
+if (h.empty()) return;
+h[0] = h.back();
+h.pop_back();
+if (!h.empty()) shiftDown(0);
+}
+
+int top() { return h[0]; }
+bool empty() { return h.empty(); }
+};
+01:40
+
+#include #include using namespace std;
+
+int arr[1000], n = 0; // n starts at 0 for dynamic insertion
+
+// 1. Sink (Shift Down) - Your original logic
+void heapify(int i) {
+int s = i, l = 2 * i + 1, r = 2 * i + 2;
+if (l < n && arr[l] < arr[s]) s = l;
+if (r < n && arr[r] < arr[s]) s = r;
+if (s != i) {
+swap(arr[i], arr[s]);
+heapify(s);
+}
+}
+
+// 2. Swim (Shift Up) - New for Insertion
+void shiftUp(int i) {
+// Parent of i in 0-based is (i-1)/2
+while (i > 0 && arr[i] < arr[(i - 1) / 2]) {
+swap(arr[i], arr[(i - 1) / 2]);
+i = (i - 1) / 2;
+}
+}
+
+// 3. Push Operation
+void push(int val) {
+arr[n] = val; // Put at the end
+n++; // Increase size
+shiftUp(n - 1); // Bubble it up
+}
+
+// 4. Pop Operation
+void pop() {
+if (n == 0) return;
+arr[0] = arr[n - 1]; // Move last to root
+n--; // Decrease size
+heapify(0); // Sink it down
+}
+
+// 5. Get Minimum
+int top() {
+return arr[0];
+}
+
+int main() {
+int num_elements;
+cin >> num_elements;
+
+// Testing Push
+for (int i = 0; i < num_elements; i++) {
+int x; cin >> x;
+push(x);
+}
+
+cout << "Minimum: " << top() << endl;
+
+pop();
+cout << "New Minimum after pop: " << top() << endl;
+
+return 0;
+}
+02:09
+
+#include using namespace std;
+
+struct N { int v, d; N *p, *c, *s; };
+
+N* link(N* y, N* z) { y->p = z; y->s = z->c; z->c = y; z->d++; return z; }
+
+N* merge(N* h1, N* h2) {
+if (!h1) return h2; if (!h2) return h1;
+N *r = 0, **t = &r;
+while (h1 && h2) {
+if (h1->d <= h2->d) { *t = h1; h1 = h1->s; }
+else { *t = h2; h2 = h2->s; }
+t = &((*t)->s);
+}
+*t = h1 ? h1 : h2; return r;
+}
+
+N* uni(N* h1, N* h2) {
+N* h = merge(h1, h2); if (!h) return h;
+N *p = 0, *x = h, *n = x->s;
+while No {
+if (x->d != n->d || (n->s && n->s->d == x->d)) { p = x; x = n; }
+else if (x->v <= n->v) { x->s = n->s; link(n, x); }
+else { if (!p) h = n; else p->s = n; link(x, n); x = n; }
+n = x->s;
+}
+return h;
+}
+
+N* ins(N* h, int v) { return uni(h, new N{v, 0, 0, 0, 0}); }
+
+N* extMin(N* &h) {
+if (!h) return 0;
+N *m = h, *pm = 0, *x = h, *p = 0;
+while (x->s) { if (x->s->v < m->v) { m = x->s; pm = x; } p = x; x = x->s; }
+if (!pm) h = h->s; else pm->s = m->s;
+N *c = m->c, *r = 0;
+while (c) { N *n = c->s; c->s = r; c->p = 0; r = c; c = n; }
+h = uni(h, r); return m;
+}
+
+N* fnd(N* h, int v) {
+if (!h) return 0; if (h->v == v) return h;
+N* r = fnd(h->c, v); return r ? r : fnd(h->s, v);
+}
+
+void dec(N* h, int o, int nw) {
+N* n = fnd(h, o); if (!n) return;
+n->v = nw; N *y = n, *z = y->p;
+while (z && y->v < z->v) { swap(y->v, z->v); y = z; z = y->p; }
+}
+
+int main() {
+int n, m, v, v2; string o; cin >> n; N* h = 0;
+while (n--) { cin >> v; h = ins(h, v); }
+cin >> m;
+while (m--) {
+cin >> o;
+if (o == "insert") { cin >> v; h = ins(h, v); }
+else if (o == "delete") {
+cin >> v; dec(h, v, -2147483648);
+N* ex = extMinheart;
+if (ex) cout << "Extracted: " << ex->v << "\n";
+}
+else if (o == "decrease") { cin >> v >> v2; dec(h, v, v2); }
+else if (o == "findmin") {
+N* m = h, *x = h; while (x) { if (x->v < m->v) m = x; x = x->s; }
+if (m) cout << "Minimum: " << m->v << "\n";
+}
+else if (o == "extractmin") {
+N* m = extMinheart; if (m) cout << "Extracted: " << m->v << "\n";
+}
+else if (o == "display") {
+cout << "Heap roots: ";
+N* t = h; while (t) { cout << t->v << (t->s ? " " : ""); t = t->s; }
+cout << "\n";
+}
+}
+}
+02:09
+
+#include using namespace std;
+
+struct Node {
+int val, degree;
+Node *parent, *child, *sibling;
+Node(int v) : val(v), degree(0), parent(NULL), child(NULL), sibling(NULL) {}
+};
+
+// Merge two root lists sorted by degree (helper for union)
+Node* mergeRoots(Node* h1, Node* h2) {
+if (!h1) return h2;
+if (!h2) return h1;
+Node *head = NULL, **tail = &head;
+while (h1 && h2) {
+if (h1->degree <= h2->degree) { *tail = h1; h1 = h1->sibling; }
+else { *tail = h2; h2 = h2->sibling; }
+tail = &((*tail)->sibling);
+}
+*tail = (h1 ? h1 : h2);
+return head;
+}
+
+// The core Union operation
+Node* unionHeaps(Node* h1, Node* h2) {
+Node* head = mergeRoots(h1, h2);
+if (!head) return NULL;
+
+Node *prev = NULL, *curr = head, *next = head->sibling;
+while (next) {
+// Case: Degrees are different OR three same degrees (keep carry)
+if (curr->degree != next->degree || (next->sibling && next->sibling->degree == curr->degree)) {
+prev = curr;
+curr = next;
+} else {
+// Combine two trees of same degree
+if (curr->val <= next->val) {
+curr->sibling = next->sibling;
+next->parent = curr;
+next->sibling = curr->child;
+curr->child = next;
+curr->degree++;
+} else {
+if (!prev) head = next;
+else prev->sibling = next;
+curr->parent = next;
+curr->sibling = next->child;
+next->child = curr;
+next->degree++;
+curr = next;
+}
+}
+next = curr->sibling;
+}
+return head;
+}
+
+Node* insert(Node* head, int x) {
+return unionHeaps(head, new Node(x));
+}
+
+Node* findMin(Node* head) {
+if (!head) return NULL;
+Node *minNode = head, *curr = head->sibling;
+while (curr) {
+if (curr->val < minNode->val) minNode = curr;
+curr = curr->sibling;
+}
+return minNode;
+}
+
+Node* extractMin(Node* head) {
+if (!head) return NULL;
+Node *minNode = head, *prevMin = NULL, *prev = head, *curr = head->sibling;
+
+// Find min and its previous node
+while (curr) {
+if (curr->val < minNode->val) { minNode = curr; prevMin = prev; }
+prev = curr; curr = curr->sibling;
+}
+
+// Remove minNode from root list
+if (prevMin) prevMin->sibling = minNode->sibling;
+else head = minNode->sibling;
+
+// Reverse children of minNode to form a new heap
+Node *newHead = NULL, *child = minNode->child;
+while (child) {
+Node* nextChild = child->sibling;
+child->sibling = newHead;
+child->parent = NULL;
+newHead = child;
+child = nextChild;
+}
+return unionHeaps(head, newHead);
+}
+
+// Decrease key needs a pointer to the specific node
+void decreaseKey(Node* node, int newVal) {
+node->val = newVal;
+while (node->parent && node->val < node->parent->val) {
+swap(node->val, node->parent->val);
+node = node->parent;
+}
+}
+
+// For 'delete x', we search for x first (O(N) in binomial heap),
+// then decrease it to -infinity and extract min.
+Node* findNode(Node* head, int x) {
+if (!head) return NULL;
+if (head->val == x) return head;
+Node* res = findNode(head->child, x);
+if (res) return res;
+return findNode(head->sibling, x);
+}
+
+void display(Node* head) {
+cout << "Root list: ";
+while (head) {
+cout << head->val << "(" << head->degree << ") ";
+head = head->sibling;
+}
+cout << endl;
+}
+
+int main() {
+Node* heap = NULL;
+int n, m, x, y;
+cin >> n;
+for (int i = 0; i < n; i++) { cin >> x; heap = insert(heap, x); }
+
+cin >> m;
+while (m--) {
+string op; cin >> op;
+if (op == "insert") { cin >> x; heap = insert(heap, x); }
+else if (op == "extractmin") { heap = extractMin(heap); }
+else if (op == "findmin") { Node* m = findMin(heap); if(m) cout << m->val << endl; }
+else if (op == "decrease") {
+cin >> x >>
+02:14
+
+#include using namespace std;
+
+// Use long long for sums to avoid overflow
+typedef long long ll;
+
+const int MAXN = 2e5 + 5;
+ll tree[4 * MAXN];
+ll lazy[4 * MAXN];
+int arr[MAXN];
+
+// tl = tree_left, tr = tree_right (the range the current node covers)
+void push(int v, int tl, int tr) {
+if (lazy[v] != 0) {
+int tm = (tl + tr) / 2;
+// Update left child
+tree[2 * v] += lazy[v] * (tm - tl + 1);
+lazy[2 * v] += lazy[v];
+// Update right child
+tree[2 * v + 1] += lazy[v] * (tr - tm);
+lazy[2 * v + 1] += lazy[v];
+// Reset parent
+lazy[v] = 0;
+}
+}
+
+void build(int v, int tl, int tr) {
+if (tl == tr) {
+tree[v] = arr[tl];
+} else {
+int tm = (tl + tr) / 2;
+build(2 * v, tl, tm);
+build(2 * v + 1, tm + 1, tr);
+tree[v] = tree[2 * v] + tree[2 * v + 1];
+}
+}
+
+void update(int v, int tl, int tr, int l, int r, int add) {
+if (l > r) return;
+if (l == tl && r == tr) {
+tree[v] += (ll)add * (tr - tl + 1);
+lazy[v] += add;
+} else {
+push(v, tl, tr);
+int tm = (tl + tr) / 2;
+update(2 * v, tl, tm, l, min(r, tm), add);
+update(2 * v + 1, tm + 1, tr, max(l, tm + 1), r, add);
+tree[v] = tree[2 * v] + tree[2 * v + 1];
+}
+}
+
+ll query(int v, int tl, int tr, int l, int r) {
+if (l > r) return 0;
+if (l == tl && r == tr) return tree[v];
+push(v, tl, tr);
+int tm = (tl + tr) / 2;
+return query(2 * v, tl, tm, l, min(r, tm)) +
+query(2 * v + 1, tm + 1, tr, max(l, tm + 1), r);
+}
+
+int main() {
+// Fast I/O for CP
+ios::sync_with_stdio(0); cin.tie(0);
+
+int n; cin >> n;
+for (int i = 1; i <= n; i++) cin >> arr[i];
+
+build(1, 1, n);
+
+int q; cin >> q;
+while (q--) {
+int type; cin >> type;
+if (type == 1) { // Range Update: 1 l r val
+int l, r, val;
+cin >> l >> r >> val;
+update(1, 1, n, l, r, val);
+} else { // Range Query: 2 l r
+int l, r;
+cin >> l >> r;
+cout << query(1, 1, n, l, r) << "\n";
+}
+}
+return 0;
+}
+02:33
+
+#include using namespace std;
+
+// Use long long for sums to avoid overflow
+typedef long long ll;
+
+const int MAXN = 2e5 + 5;
+ll tree[4 * MAXN];
+ll lazy[4 * MAXN];
+int arr[MAXN];
+
+// tl = tree_left, tr = tree_right (the range the current node covers)
+void push(int v, int tl, int tr) {
+if (lazy[v] != 0) {
+int tm = (tl + tr) / 2;
+// Update left child
+tree[2 * v] += lazy[v] * (tm - tl + 1);
+lazy[2 * v] += lazy[v];
+// Update right child
+tree[2 * v + 1] += lazy[v] * (tr - tm);
+lazy[2 * v + 1] += lazy[v];
+// Reset parent
+lazy[v] = 0;
+}
+}
+
+void build(int v, int tl, int tr) {
+if (tl == tr) {
+tree[v] = arr[tl];
+} else {
+int tm = (tl + tr) / 2;
+build(2 * v, tl, tm);
+build(2 * v + 1, tm + 1, tr);
+tree[v] = tree[2 * v] + tree[2 * v + 1];
+}
+}
+
+void update(int v, int tl, int tr, int l, int r, int add) {
+if (l > r) return;
+if (l == tl && r == tr) {
+tree[v] += (ll)add * (tr - tl + 1);
+lazy[v] += add;
+} else {
+push(v, tl, tr);
+int tm = (tl + tr) / 2;
+update(2 * v, tl, tm, l, min(r, tm), add);
+update(2 * v + 1, tm + 1, tr, max(l, tm + 1), r, add);
+tree[v] = tree[2 * v] + tree[2 * v + 1];
+}
+}
+
+ll query(int v, int tl, int tr, int l, int r) {
+if (l > r) return 0;
+if (l == tl && r == tr) return tree[v];
+push(v, tl, tr);
+int tm = (tl + tr) / 2;
+return query(2 * v, tl, tm, l, min(r, tm)) +
+query(2 * v + 1, tm + 1, tr, max(l, tm + 1), r);
+}
+
+int main() {
+// Fast I/O for CP
+ios::sync_with_stdio(0); cin.tie(0);
+
+int n; cin >> n;
+for (int i = 1; i <= n; i++) cin >> arr[i];
+
+build(1, 1, n);
+
+int q; cin >> q;
+while (q--) {
+int type; cin >> type;
+if (type == 1) { // Range Update: 1 l r val
+int l, r, val;
+cin >> l >> r >> val;
+update(1, 1, n, l, r, val);
+} else { // Range Query: 2 l r
+int l, r;
+cin >> l >> r;
+cout << query(1, 1, n, l, r) << "\n";
+}
+}
+return 0;
+}
+02:44
+
+#include using namespace std;
+
+typedef long long ll;
+const int MAXN = 2e5 + 5;
+
+int n;
+ll bit[MAXN];
+
+// Add 'val' to the element at index 'i'
+void update(int i, int val) {
+for (; i <= n; i += i & -i) {
+bit[i] += val;
+}
+}
+
+// Get the sum of elements from 1 to i
+ll query(int i) {
+ll sum = 0;
+for (; i > 0; i -= i & -i) {
+sum += bit[i];
+}
+return sum;
+}
+
+// Get the sum of elements in range [l, r]
+ll range_query(int l, int r) {
+return query(r) - query(l - 1);
+}
+
+int main() {
+ios::sync_with_stdio(0); cin.tie(0);
+
+int q;
+cin >> n >> q;
+
+// Building the BIT: just update each position with its initial value
+for (int i = 1; i <= n; i++) {
+int x; cin >> x;
+update(i, x);
+}
+
+while (q--) {
+int type; cin >> type;
+if (type == 1) { // Point Update: Add val to index i
+int i, val; cin >> i >> val;
+update(i, val);
+} else { // Range Query: Sum from l to r
+int l, r; cin >> l >> r;
+cout << range_query(l, r) << "\n";
+}
+}
+
+return 0;
+}
+02:44
+
+#include #include #include using namespace std;
+
+using ll = long long;
+struct SegmentTree {
+int n;
+vector tree, lazy;
+
+SegmentTree(int size=0){
+n = size;
+tree.assign(4*n + 5, 0);
+lazy.assign(4*n + 5, 0);
+}
+void build(const vector& a, int node, int start, int end){
+if(start == end){
+tree[node] = a[start];
+return;
+}
+int mid = (start + end) / 2;
+build(a, node*2, start, mid);
+build(a, node*2+1, mid+1, end);
+tree[node] = tree[node*2] + tree[node*2+1];
+}
+void propagate(int node, int start, int end){
+if(lazy[node] != 0){
+tree[node] += (end - start + 1) * lazy[node];
+if(start != end){
+lazy[node*2] += lazy[node];
+lazy[node*2+1] += lazy[node];
+}
+lazy[node] = 0;
+}
+}
+
+void update(int node, int start, int end, int l, int r, ll val){
+propagate(node, start, end);
+
+if(start > r || end < l) return;
+
+if(start >= l && end <= r){
+lazy[node] += val;
+propagate(node, start, end);
+return;
+}
+
+int mid = (start + end) / 2;
+update(node*2, start, mid, l, r, val);
+update(node*2+1, mid+1, end, l, r, val);
+tree[node] = tree[node*2] + tree[node*2+1];
+}
+
+ll query(int node, int start, int end, int l, int r){
+if(start > r || end < l) return 0;
+
+propagate(node, start, end);
+
+if(start >= l && end <= r) return tree[node];
+
+int mid = (start + end) / 2;
+return query(node*2, start, mid, l, r) +
+query(node*2+1, mid+1, end, l, r);
+}
+};
+
+int main(){
+int n;
+cin >> n;
+
+vector a(n+1);
+for(int i=1;i<=n;i++) cin >> a[i];
+
+SegmentTree stNo;
+st.build(a, 1, 1, n);
+
+int q;
+cin >> q;
+
+while(q--){
+string op;
+cin >> op;
+
+if(op == "query"){
+int l, r;
+cin >> l >> r;
+cout << st.query(1, 1, n, l, r) << '\n';
+} else {
+int l, r;
+ll val;
+cin >> l >> r >> val;
+st.update(1, 1, n, l, r, val);
+}
+}
+}
+02:45
+
+#include using namespace std;
+using ll = long long;
+const ll INF = 1e15;
+
+struct Node {
+vector> mat;
+vector path;
+ll cost;
+int city, level;
+bool operator>(const Node& o) const {
+if(cost != o.cost) return cost > o.cost;
+return path > o.path;
+}
+};
+
+struct TSPSolver {
+int n;
+vector> dist;
+TSPSolver(int n, vector>& d) : nNo, dist(d) {}
+ll reduce(vector>& mat){
+ll cost = 0;
+for(int i = 0; i < n; i++){
+ll mn = INF;
+for(int j = 0; j < n; j++) mn = min(mn, mat[i][j]);
+if(mn == 0 || mn == INF) continue;
+cost += mn;
+for(int j = 0; j < n; j++) if(mat[i][j] != INF) mat[i][j] -= mn;
+}
+for(int j = 0; j < n; j++){
+ll mn = INF;
+for(int i = 0; i < n; i++) mn = min(mn, mat[i][j]);
+if(mn == 0 || mn == INF) continue;
+cost += mn;
+for(int i = 0; i < n; i++) if(mat[i][j] != INF) mat[i][j] -= mn;
+}
+return cost;
+}
+
+pair, ll> solve(){
+vector> mat = dist;
+ll initCost = reduce(mat);
+Node root;
+root.mat = mat;
+root.cost = initCost;
+root.city = 0;
+root.level = 0;
+root.path = {0};
+
+priority_queue, greater> pq;
+pq.push(root);
+ll best = INF;
+vector bestPath;
+while(!pq.empty()){
+Node cur = pq.top(); pq.pop();
+if(cur.cost > best) continue;
+
+if(cur.level == n - 1){
+if(cur.cost < best || (cur.cost == best && cur.path < bestPath)){
+best = cur.cost;
+bestPath = cur.path;
+bestPath.push_back(0);
+}
+continue;
+}
+
+for(int j = 0; j < n; j++){
+if(cur.mat[cur.city][j] == INF) continue;
+
+Node nxt;
+nxt.mat = cur.mat;
+nxt.level = cur.level + 1;
+nxt.city = j;
+nxt.path = cur.path;
+nxt.path.push_back(j);
+
+ll edgeCost = nxt.mat[cur.city][j];
+for(int k = 0; k < n; k++) nxt.mat[cur.city][k] = INF;
+for(int k = 0; k < n; k++) nxt.mat[k][j] = INF;
+if(nxt.level < n - 1) nxt.mat[j][0] = INF;
+
+nxt.cost = cur.cost + edgeCost + reduce(nxt.mat);
+if(nxt.cost <= best) pq.push(nxt);
+}
+}
+return make_pair(bestPath, best);
+}
+};
+
+int main(){
+int n; cin >> n;
+vector> dist(n, vectorNo);
+for(int i = 0; i < n; i++)
+for(int j = 0; j < n; j++){
+cin >> dist[i][j];
+if(i == j) dist[i][j] = INF;
+}
+
+TSPSolver solver(n, dist);
+pair, ll> res = solver.solve();
+vector path = res.first;
+ll cost = res.second;
+
+for(int i = 0; i < (int)path.size(); i++){
+if(i) cout << '-';
+cout << path[i] + 1;
+}
+cout << '\n' << cost << '\n';
+}
+02:45
+
+#include using namespace std;
+
+typedef long long ll;
+const int MAXN = 2e5 + 5;
+
+int n;
+ll bit[MAXN];
+
+// Add 'val' to the element at index 'i'
+void update(int i, int val) {
+for (; i <= n; i += i & -i) {
+bit[i] += val;
+}
+}
+
+// Get the sum of elements from 1 to i
+ll query(int i) {
+ll sum = 0;
+for (; i > 0; i -= i & -i) {
+sum += bit[i];
+}
+return sum;
+}
+
+// Get the sum of elements in range [l, r]
+ll range_query(int l, int r) {
+return query(r) - query(l - 1);
+}
+
+int main() {
+ios::sync_with_stdio(0); cin.tie(0);
+
+int q;
+cin >> n >> q;
+
+// Building the BIT: just update each position with its initial value
+for (int i = 1; i <= n; i++) {
+int x; cin >> x;
+update(i, x);
+}
+
+while (q--) {
+int type; cin >> type;
+if (type == 1) { // Point Update: Add val to index i
+int i, val; cin >> i >> val;
+update(i, val);
+} else { // Range Query: Sum from l to r
+int l, r; cin >> l >> r;
+cout << range_query(l, r) << "\n";
+}
+}
+
+return 0;
+}
+02:51
+
+#include using namespace std;
+
+typedef long long ll;
+const int MAXN = 2e5 + 5;
+
+ll tree[4 * MAXN];
+int a[MAXN];
+
+// Build the tree initially
+void build(int v, int tl, int tr) {
+if (tl == tr) {
+tree[v] = a[tl];
+} else {
+int tm = (tl + tr) / 2;
+build(2 * v, tl, tm);
+build(2 * v + 1, tm + 1, tr);
+tree[v] = tree[2 * v] + tree[2 * v + 1];
+}
+}
+
+// Update: Set element at pos to new_val
+void update(int v, int tl, int tr, int pos, int new_val) {
+if (tl == tr) {
+tree[v] = new_val;
+} else {
+int tm = (tl + tr) / 2;
+if (pos <= tm)
+update(2 * v, tl, tm, pos, new_val);
+else
+update(2 * v + 1, tm + 1, tr, pos, new_val);
+// Combine results after updating child
+tree[v] = tree[2 * v] + tree[2 * v + 1];
+}
+}
+
+// Query: Get sum in range [l, r]
+ll query(int v, int tl, int tr, int l, int r) {
+if (l > r) return 0;
+if (l == tl && r == tr) return tree[v];
+
+int tm = (tl + tr) / 2;
+return query(2 * v, tl, tm, l, min(r, tm)) +
+query(2 * v + 1, tm + 1, tr, max(l, tm + 1), r);
+}
+
+int main() {
+ios::sync_with_stdio(0); cin.tie(0);
+
+int n, q;
+cin >> n >> q;
+for (int i = 1; i <= n; i++) cin >> a[i];
+
+build(1, 1, n);
+
+while (q--) {
+int type; cin >> type;
+if (type == 1) { // 1 pos val
+int pos, val; cin >> pos >> val;
+update(1, 1, n, pos, val);
+} else { // 2 l r
+int l, r; cin >> l >> r;
+cout << query(1, 1, n, l, r) << "\n";
+}
+}
+return 0;
+}
+02:55
+
+#include using namespace std;
+
+struct Node {
+int val, degree;
+Node *parent, *child, *sibling;
+Node(int v) : val(v), degree(0), parent(NULL), child(NULL), sibling(NULL) {}
+};
+
+// Merge two root lists sorted by degree (helper for union)
+Node* mergeRoots(Node* h1, Node* h2) {
+if (!h1) return h2;
+if (!h2) return h1;
+Node *head = NULL, **tail = &head;
+while (h1 && h2) {
+if (h1->degree <= h2->degree) { *tail = h1; h1 = h1->sibling; }
+else { *tail = h2; h2 = h2->sibling; }
+tail = &((*tail)->sibling);
+}
+*tail = (h1 ? h1 : h2);
+return head;
+}
+
+// The core Union operation
+Node* unionHeaps(Node* h1, Node* h2) {
+Node* head = mergeRoots(h1, h2);
+if (!head) return NULL;
+
+Node *prev = NULL, *curr = head, *next = head->sibling;
+while (next) {
+// Case: Degrees are different OR three same degrees (keep carry)
+if (curr->degree != next->degree || (next->sibling && next->sibling->degree == curr->degree)) {
+prev = curr;
+curr = next;
+} else {
+// Combine two trees of same degree
+if (curr->val <= next->val) {
+curr->sibling = next->sibling;
+next->parent = curr;
+next->sibling = curr->child;
+curr->child = next;
+curr->degree++;
+} else {
+if (!prev) head = next;
+else prev->sibling = next;
+curr->parent = next;
+curr->sibling = next->child;
+next->child = curr;
+next->degree++;
+curr = next;
+}
+}
+next = curr->sibling;
+}
+return head;
+}
+
+Node* insert(Node* head, int x) {
+return unionHeaps(head, new Node(x));
+}
+
+Node* findMin(Node* head) {
+if (!head) return NULL;
+Node *minNode = head, *curr = head->sibling;
+while (curr) {
+if (curr->val < minNode->val) minNode = curr;
+curr = curr->sibling;
+}
+return minNode;
+}
+
+Node* extractMin(Node* head) {
+if (!head) return NULL;
+Node *minNode = head, *prevMin = NULL, *prev = head, *curr = head->sibling;
+
+// Find min and its previous node
+while (curr) {
+if (curr->val < minNode->val) { minNode = curr; prevMin = prev; }
+prev = curr; curr = curr->sibling;
+}
+
+// Remove minNode from root list
+if (prevMin) prevMin->sibling = minNode->sibling;
+else head = minNode->sibling;
+
+// Reverse children of minNode to form a new heap
+Node *newHead = NULL, *child = minNode->child;
+while (child) {
+Node* nextChild = child->sibling;
+child->sibling = newHead;
+child->parent = NULL;
+newHead = child;
+child = nextChild;
+}
+return unionHeaps(head, newHead);
+}
+
+// Decrease key needs a pointer to the specific node
+void decreaseKey(Node* node, int newVal) {
+node->val = newVal;
+while (node->parent && node->val < node->parent->val) {
+swap(node->val, node->parent->val);
+node = node->parent;
+}
+}
+
+// For 'delete x', we search for x first (O(N) in binomial heap),
+// then decrease it to -infinity and extract min.
+Node* findNode(Node* head, int x) {
+if (!head) return NULL;
+if (head->val == x) return head;
+Node* res = findNode(head->child, x);
+if (res) return res;
+return findNode(head->sibling, x);
+}
+
+void display(Node* head) {
+cout << "Root list: ";
+while (head) {
+cout << head->val << "(" << head->degree << ") ";
+head = head->sibling;
+}
+cout << endl;
+}
+
+int main() {
+Node* heap = NULL;
+int n, m, x, y;
+cin >> n;
+for (int i = 0; i < n; i++) { cin >> x; heap = insert(heap, x); }
+
+cin >> m;
+while (m--) {
+string op; cin >> op;
+if (op == "insert") { cin >> x; heap = insert(heap, x); }
+else if (op == "extractmin") { heap = extractMin(heap); }
+else if (op == "findmin") { Node* m = findMin(heap); if(m) cout << m->val << endl; }
+else if (op == "decrease") {
+cin >> x >>
+03:07
+
+#include using namespace std;
+
+struct Node {
+int key, degree;
+Node *left, *right, *child, *parent;
+bool mark;
+Node(int k) : key(k), degree(0), mark(false),
+left(this), right(this), child(NULL), parent(NULL) {}
+};
+
+Node *min_node = NULL;
+int total_nodes = 0;
+
+// Helper: Add node to a circular doubly linked list
+void addToRootList(Node* node) {
+if (!min_node) {
+min_node = node;
+} else {
+node->left = min_node;
+node->right = min_node->right;
+min_node->right->left = node;
+min_node->right = node;
+if (node->key < min_node->key) min_node = node;
+}
+}
+
+void insert(int key) {
+Node* node = new Node(key);
+addToRootList(node);
+total_nodes++;
+}
+
+// Helper: Link y as child of x
+void link(Node* y, Node* x) {
+// Remove y from root list
+y->left->right = y->right;
+y->right->left = y->left;
+// Make y child of x
+y->parent = x;
+if (!x->child) {
+x->child = y;
+y->left = y->right = y;
+} else {
+y->left = x->child;
+y->right = x->child->right;
+x->child->right->left = y;
+x->child->right = y;
+}
+x->degree++;
+y->mark = false;
+}
+
+void consolidate() {
+int max_deg = log2(total_nodes) + 2;
+vector A(max_deg, NULL);
+
+// Get all roots in a vector first because the list changes
+vector roots;
+Node* curr = min_node;
+if (curr) {
+do { roots.push_back(curr); curr = curr->right; } while (curr != min_node);
+}
+
+for (Node* x : roots) {
+int d = x->degree;
+while (A[d]) {
+Node* y = A[d];
+if (x->key > y->key) swap(x, y);
+link(y, x);
+A[d] = NULL;
+d++;
+}
+A[d] = x;
+}
+
+min_node = NULL;
+for (Node* node : A) {
+if (node) {
+node->left = node->right = node; // Reset pointers for new list
+addToRootList(node);
+}
+}
+}
+
+int extractMin() {
+Node* z = min_node;
+if (!z) return -1;
+
+if (z->child) {
+Node* child = z->child;
+do {
+Node* next = child->right;
+addToRootList(child);
+child->parent = NULL;
+child = next;
+} while (child != z->child);
+}
+
+z->left->right = z->right;
+z->right->left = z->left;
+
+int res = z->key;
+if (z == z->right) min_node = NULL;
+else {
+min_node = z->right;
+consolidate();
+}
+total_nodes--;
+return res;
+}
+
+void cut(Node* x, Node* y) {
+// Remove x from child list of y
+if (x == x->right) y->child = NULL;
+else {
+x->left->right = x->right;
+x->right->left = x->left;
+if (y->child == x) y->child = x->right;
+}
+y->degree--;
+addToRootList(x);
+x->parent = NULL;
+x->mark = false;
+}
+
+void cascadingCut(Node* y) {
+Node* z = y->parent;
+if (z) {
+if (!y->mark) y->mark = true;
+else {
+cut(y, z);
+cascadingCut(z);
+}
+}
+}
+
+void decreaseKey(Node* x, int k) {
+if (k > x->key) return;
+x->key = k;
+Node* y = x->parent;
+if (y && x->key < y->key) {
+cut(x, y);
+cascadingCutYes;
+}
+if (x->key < min_node->key) min_node = x;
+}
+
+// Find node for delete/decrease (O(N) search)
+Node* findNode(Node* n, int k) {
+if (!n) return NULL;
+Node* temp = n;
+do {
+if (temp->key == k) return temp;
+Node* res = findNode(temp->child, k);
+if (res) return res;
+temp = temp->right;
+} while (temp != n);
+return NULL;
+}
+
+int main() {
+// Basic test flow
+insert(10); insert(20); insert(5);
+cout << "Min: " << min_node->key << endl;
+cout << "Extracted: " << extractMin() << endl;
+cout << "New Min: " << min_node->key << endl;
+return 0;
+}
