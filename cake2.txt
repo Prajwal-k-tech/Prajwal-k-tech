@@ -1,0 +1,246 @@
+Good luck with your lab exam tomorrow! Since you're at IIIT Kottayam, I’ve kept these in the standard Linux format you'll be using in the lab.
+
+This is your **Final Master Cheat Sheet**. Every program follows the same structure: **Lex file (`.l`)** $\rightarrow$ **Yacc file (`.y`)** $\rightarrow$ **The Core Grammar**.
+
+---
+
+## 1. Arithmetic Expression Validation
+Checks for valid math using BODMAS and parentheses.
+
+**Lexer (`arith.l`):**
+```c
+%{
+#include "y.tab.h"
+%}
+%%
+[0-9]+      { return NUM; }
+[a-zA-Z]+   { return ID; }
+[ \t]       { ; }
+\n          { return 0; }
+.           { return yytext[0]; }
+%%
+int yywrap() { return 1; }
+```
+
+**Parser (`arith.y`):**
+```yacc
+%{
+#include<stdio.h>
+#include<stdlib.h>
+int yylex();
+void yyerror() { printf("Invalid\n"); exit(0); }
+%}
+%token NUM ID
+%left '+' '-'
+%left '*' '/'
+%right '^'
+%%
+input: exp { printf("Valid\n"); exit(0); };
+exp: exp '+' exp | exp '-' exp | exp '*' exp | exp '/' exp | exp '^' exp | '(' exp ')' | ID | NUM;
+%%
+int main() { yyparse(); }
+```
+
+---
+
+## 2. Balanced Parentheses
+Uses the "Golden Rule" for recursion to handle nested and side-by-side brackets.
+
+**Lexer (`paren.l`):**
+```c
+%{
+#include "y.tab.h"
+%}
+%%
+"("     { return '('; }
+")"     { return ')'; }
+\n      { return 0; }
+.       { ; }
+%%
+int yywrap() { return 1; }
+```
+
+**Parser (`paren.y`):**
+```yacc
+%{
+#include<stdio.h>
+#include<stdlib.h>
+int yylex();
+void yyerror() { printf("Not Balanced\n"); exit(0); }
+%}
+%%
+input: S { printf("Balanced\n"); exit(0); };
+S: '(' S ')' S | ; 
+%%
+int main() { yyparse(); }
+```
+
+---
+
+## 3. Variable Declaration Validation
+Validates C-style declarations like `int a, b;`.
+
+**Lexer (`var.l`):**
+```c
+%{
+#include "y.tab.h"
+%}
+%%
+"int"|"float"|"char" { return TYPE; }
+[a-zA-Z][a-zA-Z0-9]* { return ID; }
+[ \t\n]              { ; }
+.                    { return yytext[0]; }
+%%
+int yywrap() { return 1; }
+```
+
+**Parser (`var.y`):**
+```yacc
+%{
+#include<stdio.h>
+#include<stdlib.h>
+int yylex();
+void yyerror() { printf("Invalid\n"); exit(0); }
+%}
+%token TYPE ID
+%%
+input: TYPE list ';' { printf("Valid\n"); exit(0); };
+list: ID ',' list | ID;
+%%
+int main() { yyparse(); }
+```
+
+---
+
+## 4. Array Declaration Validation
+Checks for multi-dimensional arrays like `int a[10][20];`.
+
+**Lexer (`array.l`):**
+```c
+%{
+#include "y.tab.h"
+%}
+%%
+"int"|"float" { return TYPE; }
+[0-9]+        { return NUM; }
+[a-zA-Z]+     { return ID; }
+[ \t\n]       { ; }
+.             { return yytext[0]; }
+%%
+int yywrap() { return 1; }
+```
+
+**Parser (`array.y`):**
+```yacc
+%{
+#include<stdio.h>
+#include<stdlib.h>
+int yylex();
+void yyerror() { printf("Invalid\n"); exit(0); }
+%}
+%token TYPE ID NUM
+%%
+input: TYPE list ';' { printf("Valid\n"); exit(0); };
+list: arr ',' list | arr;
+arr: ID dims;
+dims: '[' NUM ']' dims | '[' NUM ']';
+%%
+int main() { yyparse(); }
+```
+
+---
+
+## 5. Binary to Decimal Conversion
+Uses positional math to calculate decimal values.
+
+**Lexer (`bin.l`):**
+```c
+%{
+#include "y.tab.h"
+extern int yylval;
+%}
+%%
+"0" { yylval=0; return BIT; }
+"1" { yylval=1; return BIT; }
+\n  { return 0; }
+.   { ; }
+%%
+int yywrap() { return 1; }
+```
+
+**Parser (`bin.y`):**
+```yacc
+%{
+#include<stdio.h>
+#include<stdlib.h>
+int yylex();
+void yyerror() { printf("Error\n"); exit(0); }
+%}
+%token BIT
+%%
+input: L { printf("Value: %d\n", $1); exit(0); };
+L: L BIT { $$ = $1 * 2 + $2; } | BIT { $$ = $1; };
+%%
+int main() { yyparse(); }
+```
+
+---
+
+## 6. Infix to Postfix Conversion
+Prints operators only *after* the operands have been processed.
+
+**Lexer (`post.l`):**
+```c
+%{
+#include "y.tab.h"
+#include<string.h>
+%}
+%%
+[a-zA-Z0-9]+ { yylval = strdup(yytext); return ID; }
+[ \t]        { ; }
+\n           { return 0; }
+.            { return yytext[0]; }
+%%
+int yywrap() { return 1; }
+```
+
+**Parser (`post.y`):**
+```yacc
+%{
+#include<stdio.h>
+#include<stdlib.h>
+#define YYSTYPE char*
+int yylex();
+void yyerror() { ; }
+%}
+%token ID
+%left '+' '-'
+%left '*' '/'
+%%
+input: exp { printf("\n"); exit(0); };
+exp: exp '+' exp { printf("+ "); }
+   | exp '-' exp { printf("- "); }
+   | exp '*' exp { printf("* "); }
+   | exp '/' exp { printf("/ "); }
+   | '(' exp ')'
+   | ID { printf("%s ", $1); };
+%%
+int main() { yyparse(); }
+```
+
+---
+
+## 🚀 The "Save My Life" Compilation Guide
+Memorize these four lines. If you get a "file not found" or "undefined reference," check these:
+
+1.  **`yacc -d filename.y`** (Creates `y.tab.c` and `y.tab.h`)
+2.  **`lex filename.l`** (Creates `lex.yy.c`)
+3.  **`gcc y.tab.c lex.yy.c -o output`** (Compiles them together)
+4.  **`./output`** (Runs it)
+
+### Final Pro-Tips:
+* **The Semicolon:** Yacc rules (like `list : ID ;`) **must** end with a semicolon.
+* **The Space:** In the Lexer, never put a space inside your return actions (e.g., `{return ID;}`).
+* **Success:** Using `exit(0)` inside the `input` rule ensures the program stops immediately and correctly.
+
+Go get that "S" grade! You've got this.
