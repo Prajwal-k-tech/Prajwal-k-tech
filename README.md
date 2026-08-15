@@ -1,5 +1,5 @@
 <h1 align="center">Hey, I'm Prajwal K </h1>
-<h2>I'm a Student at IIIT Kottayam, constantly trying to learn and improve and would love to help contribute, currently I'm exploring the capabilities of Rust and competitive programming.</h2>
+<h2>I'm a Student at IIIT Kottayam, constantly trying to learn and improve and would love to help contribute, currently I'm exploring the capabilities of Rust, AI/ML, Data Science, Systems Programming and competitive programming.</h2>
 
 ###
 
