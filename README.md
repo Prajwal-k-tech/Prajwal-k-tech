@@ -1,56 +1,29 @@
-<h1 align="center">Hey, I'm Prajwal K </h1>
-<h2>I'm a Student at IIIT Kottayam, constantly trying to learn and improve and would love to help contribute, currently I'm exploring the capabilities of Rust, AI/ML, Data Science, Systems Programming and competitive programming.</h2>
+# Prajwal Kumar K
 
-###
+CS undergraduate at **IIIT Kottayam**. I build interactive software and explore how agents make decisions under uncertainty.
 
-<div align="center">
-  <img src="https://skillicons.dev/icons?i=ts" height="60" alt="typescript logo"  />
-  <img width="12" />
-  <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/react/react-original.svg" height="60" alt="react logo"  />
-  <img width="12" />
-  <img src="https://skillicons.dev/icons?i=tailwind" height="60" alt="tailwindcss logo"  />
-  <img width="12" />
-  <img src="https://skillicons.dev/icons?i=nextjs" height="60" alt="nextjs logo"  />
-  <img width="12" />
-  <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/solidity/solidity-original.svg" height="60" alt="solidity logo"  />
-  <img width="12" />
-  <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/c/c-original.svg" height="60" alt="c logo"  />
-  <img width="12" />
-  <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/cplusplus/cplusplus-original.svg" height="60" alt="cplusplus logo"  />
-  <img width="12" />
-  <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/java/java-original.svg" height="60" alt="java logo"  />
-  <img width="12" />
-  <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/javascript/javascript-original.svg" height="60" alt="javascript logo"  />
-  <img width="12" />
-  <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/html5/html5-original.svg" height="60" alt="html5 logo"  />
-  <img width="12" />
-  <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/css3/css3-original.svg" height="60" alt="css3 logo"  />
-</div>
+My current work connects imperfect-information games, opponent modeling, and the evaluation of learning systems. I'm interested in game theory and trustworthy AI, and I'm developing the foundations through projects and study.
 
-###
+## Selected work
 
-<div align="center">
-  <img src="https://img.shields.io/static/v1?message=LinkedIn&logo=linkedin&label=&color=0077B5&logoColor=white&labelColor=&style=for-the-badge" height="25" alt="linkedin logo"  />
-  <img src="https://img.shields.io/static/v1?message=Twitter&logo=twitter&label=&color=1DA1F2&logoColor=white&labelColor=&style=for-the-badge" height="25" alt="twitter logo"  />
-  <img src="https://img.shields.io/static/v1?message=Discord&logo=discord&label=&color=7289DA&logoColor=white&labelColor=&style=for-the-badge" height="25" alt="discord logo"  />
-  <img src="https://img.shields.io/static/v1?message=Twitch&logo=twitch&label=&color=9146FF&logoColor=white&labelColor=&style=for-the-badge" height="25" alt="twitch logo"  />
-  <img src="https://img.shields.io/static/v1?message=dev.to&logo=dev.to&label=&color=0A0A0A&logoColor=white&labelColor=&style=for-the-badge" height="25" alt="devto logo"  />
-</div>
+- **[BattleCP](https://github.com/Prajwal-k-tech/Battle-CP)**: multiplayer Battleship with Codeforces problems, built with Rust/Axum/Tokio, WebSockets and Next.js. [Play](https://battle-cp.tech/) · [Launch discussion](https://codeforces.com/blog/entry/152124)
+- **[Bluff](https://github.com/Prajwal-k-tech/bluff)**: imperfect-information card-game agents with Bayesian opponent modeling, learned bluff prediction and reproducible evaluation. Active development.
+- **[Algorithma](https://github.com/Openverse-iiitk/DSA-Website)**: an open-source DSA visualization project I contribute to through Openverse at IIIT Kottayam.
+- **[SiliconSpire](https://github.com/Prajwal-k-tech/silconspire.cpp)**: a Quadratic Assignment Problem solver using Grey Wolf Optimization and Tabu Search. [Rust implementation](https://github.com/Prajwal-k-tech/silconspire.rs)
 
-###
+I'm also developing **PokeForge**, a Pokémon battle-agent learning and research prototype, and **Drishti-XAI**, an explainable diabetic-retinopathy screening research prototype with internal and external evaluation. Public project reports and reproduction artifacts are being prepared.
 
-<div align="center">
-  <img src="https://streak-stats.demolab.com?user=Prajwal-k-tech&locale=en&mode=daily&theme=dracula&hide_border=false&border_radius=5&order=3" height="150" alt="streak graph"  />
-  <img src="https://github-profile-trophy.vercel.app?username=Prajwal-k-tech&theme=dracula&column=-1&row=1&margin-w=8&margin-h=8&no-bg=false&no-frame=false&order=4" height="150" alt="trophy graph"  />
-</div>
+## Background
 
-###
+- B.Tech in Computer Science and Engineering, IIIT Kottayam, expected 2028.
+- Full-stack web development internship with CIO Mogul.
+- Openverse and Coders Club at IIIT Kottayam.
+- Codeforces **Pupil**, recorded peak **1221**.
 
-<picture>
-  <source media="(prefers-color-scheme: dark)" srcset="https://raw.githubusercontent.com/Prajwal-k-tech/Prajwal-k-tech/output/pacman-contribution-graph-dark.svg">
-  <source media="(prefers-color-scheme: light)" srcset="https://raw.githubusercontent.com/Prajwal-k-tech/Prajwal-k-tech/output/pacman-contribution-graph.svg">
-  <img  alt = " " src="https://raw.githubusercontent.com/Prajwal-k-tech/Prajwal-k-tech/output/pacman-contribution-graph.svg">
-</picture>
+## Currently studying
 
-###
+*An Introduction to Statistical Learning*, *Mathematics for Machine Learning*, and Stanford CS231n. These are studies in progress.
 
+I work with **Rust, C++, Python and TypeScript**, including Axum/Tokio, PyTorch and Next.js.
+
+[LinkedIn](https://www.linkedin.com/in/prajwal-kumar-k-632411307/) · [Codeforces](https://codeforces.com/profile/oGhostyyy) · [CodeChef](https://www.codechef.com/users/oghostyyy)
