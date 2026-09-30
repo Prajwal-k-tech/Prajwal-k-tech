@@ -11,7 +11,7 @@ My current work connects imperfect-information games, opponent modeling, and the
 - **[Algorithma](https://github.com/Openverse-iiitk/DSA-Website)**: an open-source DSA visualization project I contribute to through Openverse at IIIT Kottayam.
 - **[SiliconSpire](https://github.com/Prajwal-k-tech/silconspire.cpp)**: a Quadratic Assignment Problem solver using Grey Wolf Optimization and Tabu Search. [Rust implementation](https://github.com/Prajwal-k-tech/silconspire.rs)
 
-I'm also developing **PokeForge**, a Pokémon battle-agent learning and research prototype, and **Drishti-XAI**, an explainable diabetic-retinopathy screening research prototype with internal and external evaluation. Public artifacts are being prepared; neither is presented as a validated deployed system.
+I'm also developing **PokeForge**, a Pokémon battle-agent learning and research prototype, and **Drishti-XAI**, an explainable diabetic-retinopathy screening research prototype with internal and external evaluation. Public project reports and reproduction artifacts are being prepared.
 
 ## Background
 
