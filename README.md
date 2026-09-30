@@ -6,10 +6,10 @@ My current work connects imperfect-information games, opponent modeling, and the
 
 ## Selected work
 
-- **[BattleCP](https://github.com/Prajwal-k-tech/Battle-CP)** — multiplayer Battleship with Codeforces problems, built with Rust/Axum/Tokio, WebSockets and Next.js. [Play](https://battle-cp.tech/) · [Launch discussion](https://codeforces.com/blog/entry/152124)
-- **[Bluff](https://github.com/Prajwal-k-tech/bluff)** — imperfect-information card-game agents with Bayesian opponent modeling, learned bluff prediction and reproducible evaluation. Active development.
-- **[Algorithma](https://github.com/Openverse-iiitk/DSA-Website)** — an open-source DSA visualization project I contribute to through Openverse at IIIT Kottayam.
-- **[SiliconSpire](https://github.com/Prajwal-k-tech/silconspire.cpp)** — a Quadratic Assignment Problem solver using Grey Wolf Optimization and Tabu Search. [Rust implementation](https://github.com/Prajwal-k-tech/silconspire.rs)
+- **[BattleCP](https://github.com/Prajwal-k-tech/Battle-CP)**: multiplayer Battleship with Codeforces problems, built with Rust/Axum/Tokio, WebSockets and Next.js. [Play](https://battle-cp.tech/) · [Launch discussion](https://codeforces.com/blog/entry/152124)
+- **[Bluff](https://github.com/Prajwal-k-tech/bluff)**: imperfect-information card-game agents with Bayesian opponent modeling, learned bluff prediction and reproducible evaluation. Active development.
+- **[Algorithma](https://github.com/Openverse-iiitk/DSA-Website)**: an open-source DSA visualization project I contribute to through Openverse at IIIT Kottayam.
+- **[SiliconSpire](https://github.com/Prajwal-k-tech/silconspire.cpp)**: a Quadratic Assignment Problem solver using Grey Wolf Optimization and Tabu Search. [Rust implementation](https://github.com/Prajwal-k-tech/silconspire.rs)
 
 I'm also developing **PokeForge**, a Pokémon battle-agent learning and research prototype, and **Drishti-XAI**, an explainable diabetic-retinopathy screening research prototype with internal and external evaluation. Public artifacts are being prepared; neither is presented as a validated deployed system.
 
