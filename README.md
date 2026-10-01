@@ -27,10 +27,11 @@ I implemented the main pipeline for **Drishti-XAI**, a team retinal-image screen
 
 My interests include game theory, multi-agent learning and trustworthy AI.
 
-## Publication and competition
+## Recognition
 
 - First author and presenter, *Collaboration-Enabled Energy-Aware Learning Model Exchange (CE-LME) Framework for Edge Computing-Assisted Applications*, IEEE ICICI 2025. [DOI](https://doi.org/10.1109/ICICI65870.2025.11069657)
 - Team SuKMaDhe placed 86th out of 7,085 teams at HOLMES CTF 2025 and solved all 65 challenges.
+- Best Software Award at IEEE MACE .hack(); '26 for Anchor, as part of Team Hogorithm.
 
 ## Background
 
