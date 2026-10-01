@@ -6,7 +6,7 @@
 
 I build interactive software and study how agents make decisions with incomplete information. My work spans multiplayer systems, opponent modeling and empirical evaluation.
 
-[LinkedIn](https://www.linkedin.com/in/prajwal-kumar-k-632411307/) · [Codeforces](https://codeforces.com/profile/oGhostyyy) · [CodeChef](https://www.codechef.com/users/oghostyyy) · [AtCoder](https://atcoder.jp/users/oGhostyyy)
+[LinkedIn](https://www.linkedin.com/in/prajwal-kumar-k-632411307/) · [Codeforces](https://codeforces.com/profile/oGhostyyy) · [LeetCode](https://leetcode.com/u/prajwal_k_k_/) · [CodeChef](https://www.codechef.com/users/oghostyyy) · [AtCoder](https://atcoder.jp/users/oGhostyyy)
 
 </div>
 
@@ -26,6 +26,11 @@ I implemented the main pipeline for **Drishti-XAI**, a team retinal-image screen
 **[PokeForge](https://github.com/Prajwal-k-tech/PokeForge)** is an in-progress Pokémon battle-agent project.
 
 My interests include game theory, multi-agent learning and trustworthy AI.
+
+## Publication and competition
+
+- First author and presenter, *Collaboration-Enabled Energy-Aware Learning Model Exchange (CE-LME) Framework for Edge Computing-Assisted Applications*, IEEE ICICI 2025. [DOI](https://doi.org/10.1109/ICICI65870.2025.11069657)
+- Team SuKMaDhe placed 86th out of 7,085 teams at HOLMES CTF 2025 and solved all 65 challenges.
 
 ## Background
 
