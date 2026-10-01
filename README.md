@@ -29,7 +29,7 @@ My interests include game theory, multi-agent learning and trustworthy AI.
 
 ## Publication
 
-- *Collaboration-Enabled Energy-Aware Learning Model Exchange (CE-LME) Framework for Edge Computing-Assisted Applications*, IEEE ICICI 2025. First author; conference presenter. [DOI](https://doi.org/10.1109/ICICI65870.2025.11069657)
+- *Collaboration-Enabled Energy-Aware Learning Model Exchange (CE-LME) Framework for Edge Computing-Assisted Applications*, IEEE ICICI 2025. Conference presenter. [DOI](https://doi.org/10.1109/ICICI65870.2025.11069657)
 
 ## Recognition
 
