@@ -23,9 +23,9 @@ I build interactive software and study how agents make decisions with incomplete
 
 I implemented the main pipeline for **Drishti-XAI**, a team retinal-image screening prototype. Evaluation includes internal and external data, with a substantial transfer gap documented in the reports.
 
-I am also building **PokeForge**, a Pokémon battle-agent research prototype focused on reproducible baselines and evaluation.
+**PokeForge** explores Pokémon battle agents through reproducible baselines and empirical evaluation.
 
-My interests include game theory, multi-agent learning and trustworthy AI. I am studying statistical learning, machine-learning mathematics and computer vision alongside project work.
+My interests include game theory, multi-agent learning and trustworthy AI.
 
 ## Background
 
