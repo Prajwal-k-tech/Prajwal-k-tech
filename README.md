@@ -41,6 +41,7 @@ My interests include game theory, multi-agent learning and trustworthy AI.
 - B.Tech. in Computer Science and Engineering, IIIT Kottayam; expected 2028
 - Full-stack development internship at CIO Mogul
 - Technical lead in Openverse; core technical member of Coders Club
+- Codeforces Pupil; peak rating 1222, current profile rating 1221 after rollback
 
 ## Tools
 
