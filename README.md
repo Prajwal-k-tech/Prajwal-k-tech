@@ -2,7 +2,8 @@
 
 Computer Science at IIIT Kottayam, class of 2028.
 
-I enjoy competitive programming and algorithms, systems, game theory, and machine learning.
+I enjoy competitive programming and algorithms, systems, game theory,  machine learning and I dabble a bit with Cybersecurity and Enjoy CTFs.
+
 
 [LinkedIn](https://www.linkedin.com/in/prajwal-kumar-k-632411307/) · [Codeforces](https://codeforces.com/profile/oGhostyyy) · [LeetCode](https://leetcode.com/u/prajwal_k_k_/) · [CodeChef](https://www.codechef.com/users/oghostyyy) · [AtCoder](https://atcoder.jp/users/oGhostyyy)
 
