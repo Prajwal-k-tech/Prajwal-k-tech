@@ -15,7 +15,7 @@ I enjoy competitive programming and algorithms, systems, game theory, and machin
 | [PokeForge](https://github.com/Prajwal-k-tech/PokeForge) | Pokémon battle agents. In progress. |
 | SiliconSpire: [C++](https://github.com/Prajwal-k-tech/silconspire.cpp) / [Rust](https://github.com/Prajwal-k-tech/silconspire.rs) | Quadratic Assignment Problem solvers. |
 | [Algorithma](https://github.com/Openverse-iiitk/DSA-Website) | Data-structure and algorithm visualizations; Openverse contributor. |
-| Drishti-XAI | Diabetic-retinopathy screening prototype. |
+| Drishti-XAI | Team diabetic-retinopathy research prototype; I built the MATLAB/Python prototype and evaluation pipeline. |
 
 Rust · C++ · Python · TypeScript
 
