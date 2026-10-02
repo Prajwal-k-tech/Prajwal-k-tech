@@ -1,48 +1,27 @@
-<div align="center">
-
 # Prajwal Kumar K
 
-**Computer Science undergraduate at IIIT Kottayam**
+Computer Science at IIIT Kottayam, class of 2028.
 
-I build interactive software and study how agents make decisions with incomplete information. My work spans multiplayer systems, opponent modeling and empirical evaluation.
+I build software and explore machine learning, security and game theory.
 
 [LinkedIn](https://www.linkedin.com/in/prajwal-kumar-k-632411307/) · [Codeforces](https://codeforces.com/profile/oGhostyyy) · [LeetCode](https://leetcode.com/u/prajwal_k_k_/) · [CodeChef](https://www.codechef.com/users/oghostyyy) · [AtCoder](https://atcoder.jp/users/oGhostyyy)
 
-</div>
+## Projects
 
-## Selected work
+| Project | Description |
+| :--- | :--- |
+| [BattleCP](https://github.com/Prajwal-k-tech/Battle-CP) | Multiplayer Battleship meets competitive programming. [Play](https://battle-cp.tech/) · [Launch](https://codeforces.com/blog/entry/152124) |
+| [Bluff](https://github.com/Prajwal-k-tech/bluff) | Bots for an imperfect-information card game. In progress. |
+| [PokeForge](https://github.com/Prajwal-k-tech/PokeForge) | Pokémon battle bots. In progress. |
+| SiliconSpire: [C++](https://github.com/Prajwal-k-tech/silconspire.cpp) / [Rust](https://github.com/Prajwal-k-tech/silconspire.rs) | Heuristic solvers for the Quadratic Assignment Problem. |
+| [Algorithma](https://github.com/Openverse-iiitk/DSA-Website) | Algorithm visualizations; contributor through Openverse. |
+| Drishti-XAI | Explainable diabetic-retinopathy screening prototype. |
 
-| Project | What it is |
-| --- | --- |
-| [BattleCP](https://github.com/Prajwal-k-tech/Battle-CP) · [live](https://battle-cp.tech/) | Multiplayer Battleship with Codeforces problems, built with Rust, Axum, Tokio, WebSockets and Next.js. [Launch discussion](https://codeforces.com/blog/entry/152124). |
-| [Bluff](https://github.com/Prajwal-k-tech/bluff) | An imperfect-information card-game agent project studying opponent models, bluff prediction and reproducible evaluation. |
-| [SiliconSpire, C++](https://github.com/Prajwal-k-tech/silconspire.cpp) · [Rust](https://github.com/Prajwal-k-tech/silconspire.rs) | Two implementations of a Quadratic Assignment Problem heuristic combining Grey Wolf Optimization and Tabu Search. |
-| [Algorithma](https://github.com/Openverse-iiitk/DSA-Website) | Data-structure and algorithm visualizations; my contribution is through Openverse at IIIT Kottayam. |
+Rust · C++ · Python · TypeScript
 
-## Research
+## Highlights
 
-For **Drishti-XAI**, a team retinal-imaging research project, I built the MATLAB/Python prototype and evaluation pipeline. External testing exposed a substantial transfer gap, documented alongside the internal results.
-
-**[PokeForge](https://github.com/Prajwal-k-tech/PokeForge)** is an in-progress Pokémon battle-agent project.
-
-My interests include game theory, multi-agent learning and trustworthy AI.
-
-## Publication
-
-- *Collaboration-Enabled Energy-Aware Learning Model Exchange (CE-LME) Framework for Edge Computing-Assisted Applications*, IEEE ICICI 2025. First-listed author; conference presenter. [DOI](https://doi.org/10.1109/ICICI65870.2025.11069657)
-
-## Recognition
-
-- Team SuKMaDhe placed 86th out of 7,085 teams at HOLMES CTF 2025 and solved all 65 challenges.
-- Team Hogorithm received the Best Software Award at IEEE MACE .hack(); '26 for Anchor.
-
-## Background
-
-- B.Tech. in Computer Science and Engineering, IIIT Kottayam; expected 2028
-- Full-stack development internship at CIO Mogul
-- Technical lead in Openverse; core technical member of Coders Club
-- Codeforces Pupil; peak rating 1222, current profile rating 1221
-
-## Tools
-
-Rust · C++ · Python · TypeScript · PyTorch · Next.js · Axum · Tokio
+- Full-stack development internship at CIO Mogul.
+- HOLMES CTF 2025: team SuKMaDhe, 86th of 7,085 teams; 65/65 challenges solved.
+- Best Software Award at IEEE MACE .hack(); '26: team Hogorithm, Anchor.
+- [CE-LME, IEEE ICICI 2025](https://doi.org/10.1109/ICICI65870.2025.11069657): first-listed author and conference presenter.
