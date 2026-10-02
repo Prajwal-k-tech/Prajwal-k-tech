@@ -2,7 +2,7 @@
 
 Computer Science at IIIT Kottayam, class of 2028.
 
-I enjoy challenging problems across computer science, especially algorithms, systems, game theory and machine learning.
+I enjoy competitive programming and algorithms, systems, game theory, and machine learning.
 
 [LinkedIn](https://www.linkedin.com/in/prajwal-kumar-k-632411307/) · [Codeforces](https://codeforces.com/profile/oGhostyyy) · [LeetCode](https://leetcode.com/u/prajwal_k_k_/) · [CodeChef](https://www.codechef.com/users/oghostyyy) · [AtCoder](https://atcoder.jp/users/oGhostyyy)
 
@@ -10,12 +10,12 @@ I enjoy challenging problems across computer science, especially algorithms, sys
 
 | Project | Description |
 | :--- | :--- |
-| [BattleCP](https://github.com/Prajwal-k-tech/Battle-CP) | Multiplayer Battleship meets competitive programming. [Play](https://battle-cp.tech/) · [Launch](https://codeforces.com/blog/entry/152124) |
-| [Bluff](https://github.com/Prajwal-k-tech/bluff) | Bots for an imperfect-information card game. In progress. |
-| [PokeForge](https://github.com/Prajwal-k-tech/PokeForge) | Pokémon battle bots. In progress. |
-| SiliconSpire: [C++](https://github.com/Prajwal-k-tech/silconspire.cpp) / [Rust](https://github.com/Prajwal-k-tech/silconspire.rs) | Heuristic solvers for the Quadratic Assignment Problem. |
-| [Algorithma](https://github.com/Openverse-iiitk/DSA-Website) | Algorithm visualizations; contributor through Openverse. |
-| Drishti-XAI | Explainable diabetic-retinopathy screening prototype. |
+| [BattleCP](https://github.com/Prajwal-k-tech/Battle-CP) | Multiplayer Battleship with Codeforces problems. [Play](https://battle-cp.tech/) · [Launch](https://codeforces.com/blog/entry/152124) |
+| [Bluff](https://github.com/Prajwal-k-tech/bluff) | Card-game agents. In progress. |
+| [PokeForge](https://github.com/Prajwal-k-tech/PokeForge) | Pokémon battle agents. In progress. |
+| SiliconSpire: [C++](https://github.com/Prajwal-k-tech/silconspire.cpp) / [Rust](https://github.com/Prajwal-k-tech/silconspire.rs) | Quadratic Assignment Problem solvers. |
+| [Algorithma](https://github.com/Openverse-iiitk/DSA-Website) | Data-structure and algorithm visualizations; Openverse contributor. |
+| Drishti-XAI | Diabetic-retinopathy screening prototype. |
 
 Rust · C++ · Python · TypeScript
 
