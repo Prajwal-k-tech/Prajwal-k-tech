@@ -21,7 +21,7 @@ I build interactive software and study how agents make decisions with incomplete
 
 ## Research
 
-For **Drishti-XAI**, a team retinal-imaging prototype, I built most of its MATLAB/Python implementation and evaluation pipeline. External testing exposed a substantial transfer gap, documented alongside the internal results.
+For **Drishti-XAI**, a team retinal-imaging research project, I built the MATLAB/Python prototype and evaluation pipeline. External testing exposed a substantial transfer gap, documented alongside the internal results.
 
 **[PokeForge](https://github.com/Prajwal-k-tech/PokeForge)** is an in-progress Pokémon battle-agent project.
 
