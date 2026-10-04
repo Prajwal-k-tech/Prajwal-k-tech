@@ -2,7 +2,7 @@
 
 Computer Science at IIIT Kottayam, class of 2028.
 
-I enjoy competitive programming and algorithms, working in C++ and Rust, and understanding how systems behave. I'm also interested in game theory, machine learning and data-focused work, and I explore cybersecurity through CTFs.
+I enjoy competitive programming and algorithms, working in C++ and Rust, and understanding how systems behave. I'm also interested in game theory, machine learning and data-focused work, and I explore cybersecurity through CTFs you can check our team out here https://ctftime.org/team/368738/.
 
 
 [LinkedIn](https://www.linkedin.com/in/prajwal-kumar-k-632411307/) · [Codeforces](https://codeforces.com/profile/oGhostyyy) · [LeetCode](https://leetcode.com/u/prajwal_k_k_/) · [CodeChef](https://www.codechef.com/users/oghostyyy) · [AtCoder](https://atcoder.jp/users/oGhostyyy)
